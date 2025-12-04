@@ -1,21 +1,24 @@
 import express from 'express';
 import Database from 'better-sqlite3';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
+import cors from 'cors';
+import test from './routes/test';
 
 const app = express();
-const port = Number(process.env.PORT ?? 3000);
+// CORS + logi requestów (pomaga sprawdzić, czy front w ogóle trafia do backendu)
+app.use(cors());
+app.use((req, _res, next) => {
+  console.log(`[REQ] ${req.method} ${req.originalUrl}`);
+  next();
+});
+app.use(express.json());
+app.use("/payments", test);
 
-const sqliteFile = process.env.SQLITE_FILE ?? 'dev.sqlite';
-const sqlite = new Database(sqliteFile);
-const db = drizzle({ client: sqlite });
+
 
 app.get('/', (req, res) => {
-  res.json({ ok: true });
+  res.send('Backend HACKNation działa ✅');
 });
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server listening on http://localhost:${port}`);
-});
-
-export { db };
+const PORT = process.env.PORT || 3100;
+app.listen(PORT, () => console.log(`Serwer działa na porcie ${PORT}`));
