@@ -22,7 +22,7 @@ const user = z.object(
     }
 ); 
 
-router.post('/login', async (req,res) => {
+router.post('/login',  async (req,res) => {
     const parsed = user.safeParse(req.body);
     if (!parsed.success){
         return res.status(402).json({
@@ -72,28 +72,19 @@ router.post('/login', async (req,res) => {
                 { expiresIn: '3d' }
             );
 
-            console.log('Generated refresh token:', refresh_token);
-            try{
-                const result_of_insertion = await db.transaction(async (tx) => {
-                    const insertResult = await tx.insert(refresh_tokens).values({
-                        user_id: userData[0].id,
-                        token: refresh_token,
-                        expires_at: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
-                        is_revoked: 0,
-                    });
-                    return insertResult;
-                });
-                if (!result_of_insertion) {
-                    return res.status(500).json({
-                        error: 'problem with saving refresh token'
-                    });
-                }
-            }
-            catch (error){
-
+            try {
+            db.transaction((tx) => {
+                tx.insert(refresh_tokens).values({
+                    user_id: userData[0].id,
+                    token: refresh_token,
+                    expires_at: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+                    is_revoked: 0,
+                }).run(); 
+            });
+            } catch (dbError) {
+                console.error('Error saving refresh token inside transaction:', dbError);
                 return res.status(500).json({
-                    
-                    error: 'internal server error'
+                    error: 'problem with saving refresh token'
                 });
             }
 
