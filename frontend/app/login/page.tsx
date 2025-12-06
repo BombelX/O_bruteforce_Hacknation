@@ -39,39 +39,38 @@ function LoginForm(): JSX.Element {
     setMessage(null);
     setIsLoading(true);
 
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: login,
-                    password: password, 
-                }),
-            });
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: login,
+          password: password,
+        }),
+      });
 
-           
-            if (response.ok) {
-                setMessage({ type: 'success', text: `Zalogowano pomyślnie! Przekierowanie...` });
-                setTimeout(() => {
-                    router.push('./home'); 
-                }, 1000);
-            } else if (response.status === 401) {
-            
-                setMessage({ type: 'error', text: 'Nieprawidłowy login lub hasło. Spróbuj ponownie.' });
-            } else {
-
-                setMessage({ type: 'error', text: 'Wystąpił nieznany błąd serwera.' });
-            }
-
-        } catch (error) {
-            console.error('Błąd połączenia:', error);
-            setMessage({ type: 'error', text: 'Nie udało się połączyć z serwerem logowania. Sprawdź połączenie internetowe.' });
-        } finally {
-            setIsLoading(false);
-        }
-    };
+      if (response.ok) {
+        setMessage({ type: "success", text: `Zalogowano pomyślnie! Przekierowanie...` });
+        setTimeout(() => {
+          router.push("./home");
+        }, 1000);
+      } else if (response.status === 401) {
+        setMessage({ type: "error", text: "Nieprawidłowy login lub hasło. Spróbuj ponownie." });
+      } else {
+        setMessage({ type: "error", text: "Wystąpił nieznany błąd serwera." });
+      }
+    } catch (error) {
+      console.error("Błąd połączenia:", error);
+      setMessage({
+        type: "error",
+        text: "Nie udało się połączyć z serwerem logowania. Sprawdź połączenie internetowe.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
