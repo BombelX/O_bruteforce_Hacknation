@@ -8,21 +8,12 @@ function HomePage(): JSX.Element {
     return (
         <div className="min-h-screen bg-gray-50 p-6 sm:p-10">
       
-            <header className="bg-white shadow-md rounded-lg p-4 mb-10 flex items-center justify-between">
-                <div className="flex items-center">
-                   
-                    <h1 className="text-3xl font-extrabold text-gray-800">
-                        Biuro Rzeczy Znalezionych
-                    </h1>
-                </div>
-                <h1><Link href="./login" className="btn btn-outline btn-success text-primary border-primary hover:bg-primary hover:text-white">Zaloguj się</Link></h1>
-            </header>
+            
        
             <main className="container mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    
              
-                    <div className="lg:col-span-2 card bg-white shadow-xl p-6">
+                    <div className="lg:col-span-2 card bg-white shadow-2xl p-6 hover:scale-102 hover:shadow-3xl transition  duration-500">
                         <div className="card-body p-0">
                             <h2 className="card-title text-2xl text-blue-700 mb-4 border-b pb-2">
                                 Witamy w Systemie Biura Rzeczy Znalezionych
@@ -47,8 +38,8 @@ function HomePage(): JSX.Element {
                     </div>
 
                
-                    <div className="card bg-primary text-primary-content shadow-xl h-fit">
-                        <div className="card-body items-center text-center">
+                    <div className="card bg-primary  text-primary-content shadow-xl h-fit hover:scale-102 hover:shadow-3xl transition  duration-500">
+                        <div className="card-body items-center text-center ">
                             <h3 className="card-title text-white text-xl">
                                 Dodaj Nowy Przedmiot
                             </h3>
