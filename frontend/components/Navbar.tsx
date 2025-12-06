@@ -24,8 +24,8 @@ function Navbar(): JSX.Element {
   };
 
   return (
-    <div className="navbar bg-blue-300 shadow-lg border-b border-primary/20 px-4 sm:px-8 py-3">
-      <div className="flex-1">
+    <div className="navbar bg-blue-300 shadow-lg border-b border-primary/20 px-4 sm:px-8 py-3 " >
+      <div className="flex-1 flex ">
         <Link
           href="/home"
           className="btn bg-blue-300 text-xl text-primary normal-case h-auto py-2 gap-4"
@@ -46,7 +46,7 @@ function Navbar(): JSX.Element {
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0 items-center gap-3 sm:gap-4">
           <li>
-            <Link href="/add" className="btn bg-blue-300 text-gray-800 px-4 sm:px-6 text-base">
+            <Link href="/add" className="btn bg-blue-300 text-gray-800 px-4 sm:px-6 text-base hover:scale-105 hover:bg-gray-800  hover:text-blue-300 transition duration-300">
               Dodaj Zgubę
             </Link>
           </li>
@@ -62,7 +62,7 @@ function Navbar(): JSX.Element {
               </li>
 
               <li>
-                <button onClick={handleLogout} className="btn btn-error text-white px-6">
+                <button onClick={handleLogout} className="btn btn-error text-white px-6 hover:scale-105 hover:bg-red-700 transition duration-300">
                   Wyloguj
                 </button>
               </li>
