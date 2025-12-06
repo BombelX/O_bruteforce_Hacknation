@@ -1,3 +1,4 @@
+"use client";
 // HomePage.tsx
 import React, { JSX } from 'react'; // Wystarczy import samego Reacta
 // Używamy Link, więc potrzebujemy go z routera

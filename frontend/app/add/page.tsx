@@ -1,4 +1,4 @@
-"use client";
+
 import { useState, ChangeEvent, FormEvent } from "react";
 import StepOne from "@/components/PageOne";
 import StepTwo from "@/components/PageTwo";

@@ -1,5 +1,6 @@
+"use client";
 import React, { useState, FormEvent, JSX } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 // Adres Twojego API
 const API_URL = 'http://localhost:3100/authorize/login';
 
@@ -10,7 +11,7 @@ interface MessageState {
 }
 
 function LoginForm(): JSX.Element { // Typowanie zwracanego elementu React
-    const navigate = useNavigate();
+    const router = useRouter();
     const [login, setLogin] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [message, setMessage] = useState<MessageState | null>(null);
@@ -59,7 +60,7 @@ function LoginForm(): JSX.Element { // Typowanie zwracanego elementu React
                 // Przykładowo: Serwer zwraca token lub dane usera
                 setMessage({ type: 'success', text: `Zalogowano pomyślnie! Przekierowanie...` });
                 setTimeout(() => {
-                    navigate('/home'); 
+                    router.push('./home'); 
                 }, 1000);
             } else if (response.status === 401) {
                 // Błąd autoryzacji
