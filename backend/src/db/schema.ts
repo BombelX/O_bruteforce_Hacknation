@@ -6,6 +6,7 @@ import { Logger, LoggerConfig } from "log4ts";
 export const users = sqliteTable('test',
     {
         id: int('id').primaryKey(),
-        testvalue: text().notNull(),
+        username: text().notNull(),
+        password: text().notNull(),
     }
 )

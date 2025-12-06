@@ -1,7 +1,7 @@
 import express from 'express';
 import Database from 'better-sqlite3';
 import cors from 'cors';
-import test from './routes/route1';
+import authorize from './routes/authorize';
 
 const app = express();
 app.use(cors());
@@ -10,7 +10,7 @@ app.use((req, _res, next) => {
   next();
 });
 app.use(express.json());
-app.use("/route1", test);
+app.use("/authorize", authorize);
 
 
 
