@@ -1,16 +1,20 @@
-
+"use client";
 import { useState, ChangeEvent, FormEvent } from "react";
+
 import StepOne from "@/components/PageOne";
 import StepTwo from "@/components/PageTwo";
+import { useRouter } from "next/navigation";
 
 type SubCategoriesMap = Record<string, string[]>;
 
 export default function Add() {
   const [step, setStep] = useState<number>(1);
+  const router = useRouter();
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
-  const [description, setDescription] = useState<string>(""); // <--- NOWY STAN
+  const [description, setDescription] = useState<string>("");
+  const [showGuidelines, setShowGuidelines] = useState<boolean>(false);
 
   const [location, setLocation] = useState<string>("");
   const [date, setDate] = useState<string>("");
@@ -59,9 +63,9 @@ export default function Add() {
       location,
       date,
     };
-
+    // TODO przesylanie jsona do backendu
     alert(`Formularz wysłany!\n${JSON.stringify(formData, null, 2)}`);
-    console.log(formData);
+    router.push("/add/success");
   };
 
   return (
@@ -87,6 +91,8 @@ export default function Add() {
               onSubCategoryChange={(e) => setSelectedSubCategory(e.target.value)}
               onDescriptionChange={(e) => setDescription(e.target.value)}
               onNext={handleNext}
+              showGuidelines={showGuidelines}
+              onGuidelinesToggle={() => setShowGuidelines(!showGuidelines)}
             />
           </div>
 
