@@ -1,13 +1,15 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
-// Upewnij się, że ścieżki importu są poprawne dla Twojej struktury plików
+
 import StepOne from "@/components/PageOne";
 import StepTwo from "@/components/PageTwo";
+import { useRouter } from "next/navigation";
 
 type SubCategoriesMap = Record<string, string[]>;
 
 export default function Add() {
   const [step, setStep] = useState<number>(1);
+  const router = useRouter();
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
@@ -61,9 +63,9 @@ export default function Add() {
       location,
       date,
     };
-
+    // TODO przesylanie jsona do backendu
     alert(`Formularz wysłany!\n${JSON.stringify(formData, null, 2)}`);
-    console.log(formData);
+    router.push("/add/success");
   };
 
   return (
