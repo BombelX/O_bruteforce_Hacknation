@@ -1,5 +1,6 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
+// Upewnij się, że ścieżki importu są poprawne dla Twojej struktury plików
 import StepOne from "@/components/PageOne";
 import StepTwo from "@/components/PageTwo";
 
@@ -10,7 +11,8 @@ export default function Add() {
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
-  const [description, setDescription] = useState<string>(""); // <--- NOWY STAN
+  const [description, setDescription] = useState<string>("");
+  const [showGuidelines, setShowGuidelines] = useState<boolean>(false);
 
   const [location, setLocation] = useState<string>("");
   const [date, setDate] = useState<string>("");
@@ -87,6 +89,8 @@ export default function Add() {
               onSubCategoryChange={(e) => setSelectedSubCategory(e.target.value)}
               onDescriptionChange={(e) => setDescription(e.target.value)}
               onNext={handleNext}
+              showGuidelines={showGuidelines}
+              onGuidelinesToggle={() => setShowGuidelines(!showGuidelines)}
             />
           </div>
 
