@@ -3,7 +3,7 @@ import { email, string } from "zod";
 import { Logger, LoggerConfig } from "log4ts";
 
 
-export const users = sqliteTable('test',
+export const users = sqliteTable('users',
     {
         id: int('id').primaryKey(),
         username: text().notNull(),

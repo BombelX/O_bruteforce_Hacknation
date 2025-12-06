@@ -24,24 +24,24 @@ const user = z.object(
 
 router.post('/login', async (req,res) => {
     const parsed = user.safeParse(req.body);
-
     if (!parsed.success){
         return res.status(402).json({
             errorMessage: 'invalid data format'
         });
     }
-
+    
     let userData: any[] = [];
-
+    
     try{
         userData = await db.select().from(users).where(eq(users.username, parsed.data.username));
     }
     catch (error){
+
         return res.status(500).json({
             error: 'internal server error'
         });
     }
-
+    
     if (userData.length === 0){
         return res.status(401).json({
             error: 'invalid username or password'
@@ -71,6 +71,8 @@ router.post('/login', async (req,res) => {
                 SECRET_KEY,
                 { expiresIn: '3d' }
             );
+
+            console.log('Generated refresh token:', refresh_token);
             try{
                 const result_of_insertion = await db.transaction(async (tx) => {
                     const insertResult = await tx.insert(refresh_tokens).values({
@@ -88,11 +90,12 @@ router.post('/login', async (req,res) => {
                 }
             }
             catch (error){
+
                 return res.status(500).json({
+                    
                     error: 'internal server error'
                 });
             }
-
 
 
             return res.status(200).json(
@@ -112,7 +115,7 @@ const refreshParser  = z.object({
     username: z.string().min(3).nonempty(),
 });
 
-router.post('refresh', async (req,res) => {
+router.post('/refresh', async (req,res) => {
     const parsed = refreshParser.safeParse(req.body);
     if (!parsed.success){
         return res.status(402).json({
