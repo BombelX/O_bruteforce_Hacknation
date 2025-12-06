@@ -12,14 +12,20 @@ export default function Home()
   
   // const testdata = fetch("http://localhost:3100/route1/test").then(res => res.json()); 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black flex-col">
-      <div className="w-screen h-[20vw] bg-blue-900 justify-center flex items-center text-3xl">
-        <input value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="Type here" className="input" />
+    <div className="flex min-h-screen   bg-zinc-50 font-sans dark:bg-black flex-col">
+      <div className="flex bg-red-500 w-max h-[10vw]">
+        <div className="h-[10vw] w-[10vw] bg-yellow-200"></div>
+        <div className="w-[80vw] h-[10vw] bg-green-200"></div>
+        <div className="w-[10vw] h-[10vw] bg-blue-200"></div>
       </div>
-      <div className="w-screen h-[5vw] bg-gray-400 flex items-center justify-center text-white text-2xl flex-row gap-4 ">
-        <button className="btn btn-primary">Dodaj Rekord do bazy danych </button>
-        <button className="btn btn-secondary">Wyswietl Rekordy z bazy danych</button>
+      <div className="flex-grow flex ">
+        <div className="h-[20vw] w-[10vw] bg-yellow-500"></div>
+        <div className="w-[80vw] h-[20vw] bg-green-500  items-center pt-6 flex flex-col gap-4">
+          <button className="btn btn-primary"></button>
+        </div>
+        <div className="w-[10vw] h-[20vw] bg-blue-500"></div>
       </div>
+      <div></div>
 
 
 
