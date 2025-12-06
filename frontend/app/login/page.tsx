@@ -50,7 +50,7 @@ function LoginForm(): JSX.Element {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    login: login,
+                    username: login,
                     password: password, 
                 }),
             });
