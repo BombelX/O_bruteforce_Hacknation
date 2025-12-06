@@ -1,17 +1,18 @@
 "use client";
 
 import React, { JSX } from 'react'; 
-
+import { useState } from 'react';
 import Link from 'next/link'; 
 
 function HomePage(): JSX.Element { 
+    const [isLoggedIn, setIsLoggedIn] = useState(true); 
     return (
         <div className="min-h-screen bg-gray-50 p-6 sm:p-10">
       
             
        
             <main className="container mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-rows-2 gap-8">
              
                     <div className="lg:col-span-2 card bg-white shadow-2xl p-6 hover:scale-102 hover:shadow-3xl transition  duration-500">
                         <div className="card-body p-0">
@@ -22,37 +23,35 @@ function HomePage(): JSX.Element {
                                 Szanowny Urzędniku Starostwa,
                             </p>
                             <p className="text-gray-700 mb-6 leading-relaxed">
-                                Niniejsza platforma została stworzona z inicjatywy **Ministerstwa Cyfryzacji** w celu usprawnienia i centralizacji procesu ewidencjonowania oraz zarządzania przedmiotami zagubionymi, odnalezionymi na terenie Państwa Starostwa. Jej głównym zadaniem jest zapewnienie szybkiej i efektywnej komunikacji z obywatelami poszukującymi swoich własności.
+                                Niniejsza platforma została stworzona z inicjatywy Ministerstwa Cyfryzacji w celu usprawnienia i centralizacji procesu ewidencjonowania oraz zarządzania przedmiotami zagubionymi, odnalezionymi na terenie Państwa Starostwa. Jej głównym zadaniem jest zapewnienie szybkiej i efektywnej komunikacji z obywatelami poszukującymi swoich własności.
                             </p>
                             <p className="text-gray-700 mb-6 leading-relaxed">
                                 Prosimy o regularne korzystanie z poniższego katalogu w celu dodawania wszystkich zgub, które trafiły do Biura Rzeczy Znalezionych w Państwa jednostce.
                             </p>
 
-                            <div className="alert alert-info mt-6 shadow-lg">
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current flex-shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    <span>Kliknij poniżej, aby rozpocząć wprowadzanie nowych przedmiotów do katalogu.</span>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
 
-               
-                    <div className="card bg-primary  text-primary-content shadow-xl h-fit hover:scale-102 hover:shadow-3xl transition  duration-500">
-                        <div className="card-body items-center text-center ">
-                            <h3 className="card-title text-white text-xl">
-                                Dodaj Nowy Przedmiot
-                            </h3>
-                            <p className="mb-4">
-                                Wypełnij formularz danymi o rzeczy zagubionej.
-                            </p>
+                    {isLoggedIn?(
+                        <>
+                        <div className="card bg-primary  text-primary-content shadow-xl h-fit hover:scale-102 hover:shadow-3xl transition  duration-500">
+                            <div className="card-body items-center text-center ">
+                                <h3 className="card-title text-white text-xl">
+                                    Dodaj Nowy Przedmiot
+                                </h3>
+                                <p className="mb-4">
+                                    Wypełnij formularz danymi o rzeczy zagubionej.
+                                </p>
+                                
                             
-                          
-                            <Link href="./add" className="btn btn-outline btn-success text-white border-white hover:bg-white hover:text-primary">
-                                Przejdź do formularza dodawania
-                            </Link>
+                                <Link href="./add" className="btn btn-outline btn-success text-white border-white hover:bg-white hover:text-primary">
+                                    Przejdź do formularza dodawania
+                                </Link>
+                            </div>
                         </div>
-                    </div>
+                        </>):(<></>
+                    )}
                 </div>
             </main>
         </div>
