@@ -10,3 +10,10 @@ export const users = sqliteTable('test',
         password: text().notNull(),
     }
 )
+export const refresh_tokens = sqliteTable('refresh_tokens', {
+    id: int('id').primaryKey(),
+    user_id: int('user_id').notNull(),
+    token: text('token').notNull(),
+    expires_at: text('expires_at').notNull(),
+    is_revoked: int('is_revoked').notNull(),
+})
