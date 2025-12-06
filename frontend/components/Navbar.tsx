@@ -31,7 +31,7 @@ function Navbar(): JSX.Element {
                
                 <Link href="/home" className="btn btn-ghost text-xl text-primary normal-case">
                     
-                    <span className="ml-2 font-bold">BRZ</span>
+                    <h1 className="ml-2 font-bold text-xl">BRZ</h1>
                 </Link>
                 <span className="text-sm text-gray-500 hidden sm:inline"> | Biuro Rzeczy Znalezionych</span>
             </div>
@@ -40,7 +40,7 @@ function Navbar(): JSX.Element {
                 <ul className="menu menu-horizontal p-0 items-center">
                     
                    
-                    <li><Link href="/home" className="btn btn-ghost">Home</Link></li>
+                    
                     <li><Link href="/add" className="btn btn-ghost">Dodaj Zgubę</Link></li>
 
                  
