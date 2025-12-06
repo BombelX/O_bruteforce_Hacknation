@@ -65,10 +65,6 @@ export default function SuccessPage() {
           Strona główna
         </Link>
 
-        <div className="divider before:bg-green-200 after:bg-green-200 text-green-800/60 dark:text-green-200/60 text-sm">
-          Opcje konta
-        </div>
-
         <button
           onClick={handleLogout}
           className="btn btn-ghost text-green-900 dark:text-green-100 hover:bg-green-200 dark:hover:bg-green-900"
