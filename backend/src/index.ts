@@ -10,7 +10,7 @@ app.use((req, _res, next) => {
   next();
 });
 app.use(express.json());
-app.use("/payments", test);
+app.use("/route1", test);
 
 
 

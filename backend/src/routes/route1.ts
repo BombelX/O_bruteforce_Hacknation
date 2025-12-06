@@ -40,6 +40,7 @@ router.get('/test',async(req, res) => {
     
     const users_data = await db.select().from(users)
     if (users_data.length > 0){
+        // return res.status(200).json(users_data)
         return res.status(200).json(users_data)
     }
     else{
