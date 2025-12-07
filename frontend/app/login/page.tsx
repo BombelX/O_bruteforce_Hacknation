@@ -1,5 +1,5 @@
 "use client";
-import { useState, FormEvent, JSX } from "react";
+import React, { useState, FormEvent, JSX } from "react";
 import { useRouter } from "next/navigation";
 import { loginAction } from "./actions";
 
@@ -54,19 +54,19 @@ function LoginForm(): JSX.Element {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center h-screen bg-blue-100 ">
       <div className="card w-96 bg-white shadow-2xl p-8">
-        <h2 className="text-3xl font-bold mb-6 text-center text-primary">Logowanie</h2>
+        <h2 className="text-4xl  mb-6 text-center text-primary font-bold">Logowanie</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="form-control mb-4">
             <label className="label">
-              <span className="label-text">Login/Email:</span>
+              <span className="label-text text-primary font-bold">Login/Email:</span>
             </label>
             <input
               type="text"
               placeholder="Wpisz login"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full bg-white border-black text-primary"
               value={login}
               onChange={(e) => setLogin(e.target.value)}
               required
@@ -75,12 +75,12 @@ function LoginForm(): JSX.Element {
 
           <div className="form-control mb-6">
             <label className="label">
-              <span className="label-text">Hasło:</span>
+              <span className="label-text text-primary font-bold">Hasło:</span>
             </label>
             <input
               type="password"
               placeholder="Wpisz hasło"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full bg-white border-black text-primary"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

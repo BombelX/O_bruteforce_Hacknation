@@ -26,7 +26,7 @@ export default function StepTwo({
         <input
           type="text"
           placeholder="np. Miejscowość, Ulica, Budynek"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full bg-white border-black text-primary"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           required
@@ -39,7 +39,7 @@ export default function StepTwo({
         </label>
         <input
           type="date"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full bg-white border-black text-primary"
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
