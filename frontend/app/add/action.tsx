@@ -3,11 +3,11 @@
 import { cookies } from "next/headers";
 
 interface AddItemPayload {
-  category_id: number;
-  subcategory_id: number;
-  where_found: string;
-  found_date: string;
+  category: string;
+  subCategory: string;
   description: string;
+  location: string;
+  date: string;
 }
 
 interface ActionResponse {
@@ -20,6 +20,7 @@ export async function addItemAction(data: AddItemPayload): Promise<ActionRespons
   const cookieStore = await cookies();
   const token = cookieStore.get("token");
 
+
   if (!token) {
     return { success: false, message: "Brak autoryzacji. Zaloguj się ponownie." };
   }
@@ -29,7 +30,7 @@ export async function addItemAction(data: AddItemPayload): Promise<ActionRespons
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Cookie: `token=${token.value}`,
+        "Cookie": `token=${token.value}`
       },
       credentials: "include",
       body: JSON.stringify(data),
@@ -48,6 +49,14 @@ export async function addItemAction(data: AddItemPayload): Promise<ActionRespons
     console.error("Add item error:", error);
     return { success: false, message: "Nie udało się połączyć z serwerem." };
   }
+}
+
+interface AddItemPayload {
+  category_id: string;
+  subcategory_id: string;
+  where_found: string;
+  found_date: string;
+  description: string;
 }
 
 interface ActionResponse {

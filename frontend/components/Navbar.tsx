@@ -29,6 +29,7 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
         <Link
           href="/home"
           className="btn bg-primary text-xl rounded-2xl border-blue-600 shadow-xl hover:scale-105 transition duration-300 text-primary normal-case h-auto py-2 gap-4"
+          className="btn bg-primary text-xl rounded-2xl border-blue-600 shadow-xl hover:scale-105 transition duration-300 text-primary normal-case h-auto py-2 gap-4"
         >
           <Image
             src="/images/logoMC.png"
@@ -58,12 +59,14 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
 
           {isLoggedIn ? (
             <li className="hidden md:flex items-center">
-              <span className="text-sm text-gray-700 mr-2 hidden lg:inline hover:bg-blue-300 cursor-default">
+              <span className="text-sm text-gray-700 mr-2 hidden lg:inline">
                 Jesteś zalogowany jako {currentUserName}
               </span>
 
-              <div className="dropdown dropdown-end hover:bg-blue-300">
-                <div tabIndex={0} role="button" className="btn btn-ghost w-12 btn-circle avatar ">
+              <div className="dropdown dropdown-end hover:bg-blue-300 hover:bg-blue-300"> 
+                
+              
+                <div tabIndex={0} role="button" className="btn btn-ghost w-12 btn-circle avatar  ">
                   <div className="bg-neutral text-neutral-content w-12 rounded-full">
                     <span className="text-xl">{firstLetter}</span>
                   </div>

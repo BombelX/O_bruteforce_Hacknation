@@ -1,10 +1,16 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { logoutAction } from "@/app/login/actions";
 
 export default function SuccessPage() {
   const router = useRouter();
+
+  const handleLogout = () => {
+    // TODO
+    console.log("Wylogowywanie...");
+    router.push("/login");
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen  bg-blue-100 p-4 font-sans">
       <div className="rounded-full bg-blue-200 p-4 mb-6 animate-bounce">
@@ -26,7 +32,7 @@ export default function SuccessPage() {
         Zgłoszenie zostało pomyślnie przesłane i zapisane w bazie danych.
       </p>
       <div className="flex flex-col w-full max-w-xs gap-3">
-        <Link href="/add" className="btn btn-primary w-full shadow-md ">
+        <Link href="/add" className="btn btn-primary w-full shadow-md " >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 mr-2"
@@ -60,7 +66,7 @@ export default function SuccessPage() {
         </Link>
 
         <button
-          onClick={logoutAction}
+          onClick={handleLogout}
           className="btn btn-ghost text-white border-primary bg-primary hover:text-white w-full"
         >
           Wyloguj
