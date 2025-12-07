@@ -42,7 +42,7 @@ export const items = sqliteTable('items', {
 
 export const old_items = sqliteTable('old_items', {
     id: int('id').primaryKey(),
-    category: text('category'),
+    category: text('category').notNull(),
     found_date: text('found_date'),
     where_found: text('where_found'),
     register_date: text('register_date'),
