@@ -29,6 +29,13 @@
       "when": 1765086703919,
       "tag": "0003_salty_sunspot",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1765097386383,
+      "tag": "0004_schema_update",
+      "breakpoints": true
     }
   ]
 }
