@@ -28,7 +28,7 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
       <div className="flex-1">
         <Link
           href="/home"
-          className="btn bg-blue-800/70 text-xl rounded-2xl border-blue-600 shadow-xl hover:scale-105 transition duration-300 text-primary normal-case h-auto py-2 gap-4"
+          className="btn bg-primary text-xl rounded-2xl border-blue-600 shadow-xl hover:scale-105 transition duration-300 text-primary normal-case h-auto py-2 gap-4"
         >
           <Image
             src="/images/logoMC.png"
@@ -47,7 +47,10 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
         <ul className="menu menu-horizontal p-0 items-center gap-3 sm:gap-4">
           {isLoggedIn ? (
             <li>
-              <Link href="/add" className="btn bg-blue-300 text-gray-800 px-4 sm:px-6 text-base">
+              <Link
+                href="/add"
+                className="btn bg-primary text-gray-900 border-none shadow-xl hover:scale-105 transition duration-300 px-4 sm:px-6 text-base"
+              >
                 Dodaj Zgubę
               </Link>
             </li>
@@ -55,12 +58,12 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
 
           {isLoggedIn ? (
             <li className="hidden md:flex items-center">
-              <span className="text-sm text-gray-700 mr-2 hidden lg:inline">
+              <span className="text-sm text-gray-700 mr-2 hidden lg:inline hover:bg-blue-300 cursor-default">
                 Jesteś zalogowany jako {currentUserName}
               </span>
 
-              <div className="dropdown dropdown-end">
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+              <div className="dropdown dropdown-end hover:bg-blue-300">
+                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ">
                   <div className="bg-neutral text-neutral-content w-10 rounded-full">
                     <span className="text-xl">{firstLetter}</span>
                   </div>
