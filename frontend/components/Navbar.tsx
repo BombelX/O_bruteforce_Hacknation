@@ -19,7 +19,7 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
     router.refresh();
     router.push("/login");
   };
-
+  
   const currentUserName = userName || "Użytkownik"; 
   const firstLetter = currentUserName ? currentUserName[0].toUpperCase() : 'U';
 
@@ -28,7 +28,7 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
       <div className="flex-1">
         <Link
           href="/home"
-          className="btn bg-blue-300 text-xl text-primary normal-case h-auto py-2 gap-4"
+          className="btn bg-blue-800/70 text-xl rounded-2xl border-blue-600 shadow-xl hover:scale-105 transition duration-300 text-primary normal-case h-auto py-2 gap-4"
         >
           <Image
             src="/images/logoMC.png"
@@ -37,7 +37,7 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
             height={80}
             className="rounded-md"
           />
-          <span className="text-xl font-bold text-gray-800 hidden sm:inline">
+          <span className="text-xl font-bold text-gray-900 hidden sm:inline">
             | Biuro Rzeczy Znalezionych
           </span>
         </Link>

@@ -32,6 +32,7 @@ export const subcategories = sqliteTable('subcategories', {
 export const items = sqliteTable('items', {
     id: int('id').primaryKey(),
     category_id: int('category_id').notNull(),
+    subcategory_id: int('subcategory_id').notNull(),
     where_found: text('where_found').notNull(),
     found_date: text('found_date').notNull(),
     register_date: text('register_date').notNull(),

@@ -22,6 +22,13 @@
       "when": 1765075581016,
       "tag": "0002_goofy_stardust",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1765086703919,
+      "tag": "0003_salty_sunspot",
+      "breakpoints": true
     }
   ]
 }

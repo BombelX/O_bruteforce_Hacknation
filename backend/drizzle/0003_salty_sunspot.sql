@@ -1,0 +1,1 @@
+ALTER TABLE `items` ADD `subcategory_id` integer NOT NULL;

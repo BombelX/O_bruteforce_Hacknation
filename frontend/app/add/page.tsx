@@ -94,17 +94,23 @@ useEffect(() => {
       return;
     }
 
+    // Try to derive a numeric category id (1-based) from the categories array;
+    // if not found, fall back to sending the selectedCategory string.
+    const foundIndex = categories.indexOf(selectedCategory);
+    const foundSubCategoryIndex = subCategories[selectedCategory]?.indexOf(selectedSubCategory || "") ?? -1;
+
     const formData = {
-      category: selectedCategory,
-      subCategory: selectedSubCategory || "Brak",
-      description,
-      location,
-      date,
+      category_id: Number(foundIndex) + 1,
+      subcategory_id: Number(foundSubCategoryIndex),
+      where_found: description,
+      found_date: location,
+      description: description
     };
 
     const result = await addItemAction(formData);
 
     if (result.success) {
+
       router.push("/add/success");
     } else {
       alert(result.message || "Wystąpił błąd podczas wysyłania formularza.");

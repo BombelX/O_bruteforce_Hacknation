@@ -44,7 +44,6 @@ export async function loginAction(formData: {
       path: "/",
       maxAge: 60 * 60 * 24 * 3, // 3 dni
     };
-
     cookieStore.set("token", data.jwt_token, cookieOptions);
     cookieStore.set("refresh_token", data.refresh_token, cookieOptions);
 

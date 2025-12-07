@@ -16,10 +16,10 @@ interface ActionResponse {
 }
 
 export async function addItemAction(data: AddItemPayload): Promise<ActionResponse> {
-  const API_URL = "http://localhost:3100/items";
+  const API_URL = "http://localhost:3100/formular/submit";
   const cookieStore = await cookies();
+  const token = cookieStore.get("token");
 
-  const token = cookieStore.get("token")?.value;
 
   if (!token) {
     return { success: false, message: "Brak autoryzacji. Zaloguj się ponownie." };
@@ -30,6 +30,7 @@ export async function addItemAction(data: AddItemPayload): Promise<ActionRespons
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Cookie": `token=${token.value}`
       },
       credentials: "include",
       body: JSON.stringify(data),
@@ -51,11 +52,11 @@ export async function addItemAction(data: AddItemPayload): Promise<ActionRespons
 }
 
 interface AddItemPayload {
-  category: string;
-  subCategory: string;
+  category_id: string;
+  subcategory_id: string;
+  where_found: string;
+  found_date: string;
   description: string;
-  location: string;
-  date: string;
 }
 
 interface ActionResponse {
