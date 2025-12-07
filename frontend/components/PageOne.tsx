@@ -86,7 +86,7 @@ export default function StepOne({
             <button
               type="button"
               onClick={onGuidelinesToggle}
-              className="btn btn-xs btn-circle btn-ghost text-info "
+              className="btn btn-xs btn-circle bg-blue-100 hover:bg-blue-300 text-info border-none "
               title="Wskazówki"
             >
               <svg
@@ -107,7 +107,7 @@ export default function StepOne({
           <input
             type="text"
             placeholder="Opisz przedmiot"
-            className="input input-bordered w-full bg-white border-black"
+            className="input input-bordered w-full bg-white border-black mt-2"
             value={description}
             onChange={onDescriptionChange}
           />
@@ -115,7 +115,7 @@ export default function StepOne({
       )}
 
       {showGuidelines && (
-        <div role="alert" className="alert alert-info text-sm animate-fade-in-down">
+        <div role="alert" className="alert alert-info text-sm animate-fade-in-down bg-blue-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

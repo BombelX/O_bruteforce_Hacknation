@@ -45,7 +45,14 @@ function Navbar(): JSX.Element {
 
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0 items-center gap-3 sm:gap-4">
-          <li>
+          <li className="hidden md:flex">
+                <div className="avatar avatar-placeholder">
+                  <div className="bg-neutral text-neutral-content w-12 rounded-full">
+                    <span className="text-3xl">D</span>
+                  </div>
+                </div>
+              </li>
+              <li>
             <Link href="/add" className="btn bg-blue-300 text-gray-800 px-4 sm:px-6 text-base">
               Dodaj Zgubę
             </Link>
@@ -53,14 +60,7 @@ function Navbar(): JSX.Element {
 
           {isLoggedIn ? (
             <>
-              <li className="hidden md:flex">
-                <div className="avatar avatar-placeholder">
-                  <div className="bg-neutral text-neutral-content w-12 rounded-full">
-                    <span className="text-3xl">D</span>
-                  </div>
-                </div>
-              </li>
-
+              
               <li>
                 <button onClick={handleLogout} className="btn btn-error text-white px-6">
                   Wyloguj
@@ -73,7 +73,9 @@ function Navbar(): JSX.Element {
                 Zaloguj się
               </button>
             </li>
+            
           )}
+          
         </ul>
       </div>
     </div>

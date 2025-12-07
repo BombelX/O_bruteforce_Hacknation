@@ -12,11 +12,11 @@ export default function SuccessPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-green-50 dark:bg-green-950 p-4 font-sans">
-      <div className="rounded-full bg-green-100 p-4 mb-6 animate-bounce">
+    <div className="flex flex-col items-center justify-center min-h-screen  bg-blue-100 p-4 font-sans">
+      <div className="rounded-full bg-blue-200 p-4 mb-6 animate-bounce">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-16 w-16 text-green-600"
+          className="h-16 w-16 text-primary"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -25,14 +25,14 @@ export default function SuccessPage() {
         </svg>
       </div>
 
-      <h1 className="text-3xl font-bold text-green-800 dark:text-green-100 mb-2 text-center">
+      <h1 className="text-3xl font-bold text-primary mb-2 text-center">
         Dziękujemy za zgłoszenie!
       </h1>
-      <p className="text-green-700 dark:text-green-200 mb-8 text-center max-w-md">
+      <p className="text-primary mb-8 text-center max-w-md">
         Zgłoszenie zostało pomyślnie przesłane i zapisane w bazie danych.
       </p>
       <div className="flex flex-col w-full max-w-xs gap-3">
-        <Link href="/add" className="btn btn-primary w-full shadow-md">
+        <Link href="/add" className="btn btn-primary w-full shadow-md " >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 mr-2"
@@ -46,7 +46,7 @@ export default function SuccessPage() {
         </Link>
         <Link
           href="/home"
-          className="btn btn-outline btn-success w-full bg-white dark:bg-transparent dark:text-green-100"
+          className="btn btn-outline  w-full bg-white dark:bg-transparent text-primary border-primary"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ export default function SuccessPage() {
 
         <button
           onClick={handleLogout}
-          className="btn btn-ghost text-green-900 dark:text-green-100 hover:bg-green-200 dark:hover:bg-green-900"
+          className="btn btn-ghost text-white border-primary bg-primary hover:text-white w-full"
         >
           Wyloguj
         </button>
