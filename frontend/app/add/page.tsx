@@ -3,7 +3,7 @@ import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import StepOne from "@/components/PageOne";
 import StepTwo from "@/components/PageTwo";
 import { useRouter } from "next/navigation";
-import { addItemAction, getCategoriesAction } from "./action";
+import { addItemAction, getCategoriesAction,getSubCategoriesAction } from "./action";
 
 type SubCategoriesMap = Record<string, string[]>;
 
@@ -12,7 +12,7 @@ export default function Add() {
   const router = useRouter();
 
   const [categories, setCategories] = useState<string[]>([]);
-
+  const [subCategories, setSubCategories] = useState<SubCategoriesMap>({});
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -32,12 +32,39 @@ export default function Add() {
 
     fetchCategories();
   }, []);
-  const subCategories: SubCategoriesMap = {
-    Elektronika: ["Telefon", "Słuchawki", "Laptop/Tablet", "Ładowarka/Kable", "Inne"],
-    Dokumenty: ["Dowód osobisty", "Legitymacja", "Prawo jazdy", "Paszport", "Inne"],
-    "Rzeczy osobiste": ["Portfel", "Klucze", "Okulary", "Biżuteria", "Plecak/Torebka", "Inne"],
-    Odzież: ["Kurtka/Płaszcz", "Czapka/Szalik/Rękawiczki", "Buty", "Bluza/Sweter", "Inne"],
+
+useEffect(() => {
+  const fetchSubCategories = async () => {
+    if (!selectedCategory) {
+      // no category selected, don't modify the map
+      return;
+    }
+
+    const data = await getSubCategoriesAction(categories.indexOf(selectedCategory) + 1);
+    console.log(data);
+    if (data && data.length > 0) {
+      setSubCategories(prev => ({
+        ...prev,
+        [selectedCategory]: data,
+      }));
+    } else {
+      setSubCategories(prev => ({
+        ...prev,
+        [selectedCategory]: [],
+      }));
+    }
   };
+
+  fetchSubCategories();
+}, [selectedCategory, categories]);
+
+  // const defaultSubCategories: SubCategoriesMap = {
+  //   Elektronika: ["Telefon", "Słuchawki", "Laptop/Tablet", "Ładowarka/Kable", "Inne"],
+  //   Dokumenty: ["Dowód osobisty", "Legitymacja", "Prawo jazdy", "Paszport", "Inne"],
+  //   "Rzeczy osobiste": ["Portfel", "Klucze", "Okulary", "Biżuteria", "Plecak/Torebka", "Inne"],
+  //   Odzież: ["Kurtka/Płaszcz", "Czapka/Szalik/Rękawiczki", "Buty", "Bluza/Sweter", "Inne"],
+  // };
+
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);
@@ -49,7 +76,7 @@ export default function Add() {
       alert("Proszę wybrać kategorię.");
       return;
     }
-    if (subCategories[selectedCategory] && !selectedSubCategory) {
+    if (!selectedSubCategory) {
       alert("Proszę wybrać podkategorię.");
       return;
     }

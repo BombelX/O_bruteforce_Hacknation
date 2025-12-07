@@ -3,7 +3,7 @@ import { z } from "zod";
 import { db } from "../db/client";
 import { eq } from "drizzle-orm";
 import { ca } from "zod/v4/locales";
-import { categories } from "../db/schema";
+import { categories, subcategories } from "../db/schema";
 
 const router = Router();
 
@@ -48,9 +48,25 @@ router.get("/categories", async (req, res) => {
 
 router.get("/subcategories/:id", async (req, res) => {
   const { id } = req.params;
-  return res.status(200).json({
-    category: `category with id ${id}`,
-  });
+  const idNum = Number(id);
+  if (Number.isNaN(idNum)) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+
+  try {
+    // const rz = await db.select().from(subcategories);
+    // console.log(rz);
+
+    const result = await db
+      .select({ name: subcategories.name, id: subcategories.id })
+      .from(subcategories)
+      .where(eq(subcategories.category_id, idNum));
+      console.log(result);
+    return res.status(200).json(result);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 export default router;

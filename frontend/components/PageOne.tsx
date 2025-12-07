@@ -32,7 +32,6 @@ export default function StepOne({
   const hasSubCategories = !!subCategories[selectedCategory];
   const showDescription =
     selectedCategory !== "" && (hasSubCategories ? selectedSubCategory !== "" : true);
-
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="form-control w-full">
