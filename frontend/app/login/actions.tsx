@@ -54,7 +54,28 @@ export async function loginAction(formData: {
 }
 
 export async function logoutAction() {
+  const API_URL = "http://localhost:3100/authorize/logout";
   const cookieStore = await cookies();
+
+  const refreshToken = cookieStore.get("refresh_token")?.value;
+
+  if (refreshToken) {
+    try {
+      await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refresh_token: refreshToken,
+        }),
+      });
+    } catch (error) {
+      console.error("Błąd podczas wylogowywania na backendzie:", error);
+    }
+  }
   cookieStore.delete("token");
   cookieStore.delete("refresh_token");
+
+  return { success: true };
 }
