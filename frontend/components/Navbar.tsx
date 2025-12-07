@@ -63,7 +63,7 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
               </span>
 
               <div className="dropdown dropdown-end hover:bg-blue-300">
-                <div tabIndex={0} role="button" className="btn btn-ghost w-12 btn-circle avatar ">
+                <div tabIndex={0} role="button" className="btn btn-ghost  btn-circle avatar ">
                   <div className="bg-neutral text-neutral-content w-12 rounded-full">
                     <span className="text-xl">{firstLetter}</span>
                   </div>
