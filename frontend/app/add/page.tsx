@@ -25,7 +25,6 @@ export default function Add() {
     const fetchCategories = async () => {
       const data = await getCategoriesAction();
       console.log(data);
-      alert(data);
       if (data && data.length > 0) {
         setCategories(data);
       }
