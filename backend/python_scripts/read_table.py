@@ -10,8 +10,8 @@ import read_docx
 import read_jpg
 import api
 wojewodztwo = 'Małopolskie'
-powiat = 'Miasto Kraków'
-input = "610636_0 (2).pdf"
+powiat = 'wielicki'
+input = "3987072.pdf"
 
 categories = {
     "Dokumenty": [
