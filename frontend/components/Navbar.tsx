@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX } from "react"; // Poprawiony import dla React 19/Next 15
+import { JSX } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,11 +14,8 @@ function Navbar({ isLoggedIn }: NavbarProps): JSX.Element {
   const router = useRouter();
 
   const handleLogout = async () => {
-    // 1. Wywołaj akcję serwerową, aby usunąć ciasteczka
     await logoutAction();
-    // 2. Odśwież router, aby Layout ponownie sprawdził ciasteczka i przekazał false
     router.refresh();
-    // 3. Opcjonalnie przekieruj na login
     router.push("/login");
   };
 
@@ -29,7 +26,6 @@ function Navbar({ isLoggedIn }: NavbarProps): JSX.Element {
           href="/home"
           className="btn bg-blue-300 text-xl text-primary normal-case h-auto py-2 gap-4"
         >
-          {/* Upewnij się, że masz ten obrazek w public/images/ */}
           <Image
             src="/images/logoMC.png"
             alt="Logo"

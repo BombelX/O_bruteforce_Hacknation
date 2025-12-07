@@ -53,7 +53,6 @@ export async function loginAction(formData: {
   }
 }
 
-// NOWA FUNKCJA: Wylogowywanie
 export async function logoutAction() {
   const cookieStore = await cookies();
   cookieStore.delete("token");
