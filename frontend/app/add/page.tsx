@@ -69,14 +69,14 @@ export default function Add() {
   };
 
   return (
-    <div className="flex min-h-screen bg-zinc-50 font-sans dark:bg-black flex-col p-4 gap-4 items-center">
-      <h1 className="text-2xl font-bold mb-4 self-start md:self-center">
-        Biuro rzeczy znalezionych
+    <div className="flex min-h-screen text-primary font-sans bg-blue-100 flex-col p-4 gap-4 items-center ">
+      <h1 className="text-4xl font-bold mb-4 self-start md:self-center ">
+        Dodaj nowy zagubiony przedmiot
       </h1>
 
-      <div className="w-full max-w-xs overflow-hidden">
+      <div className="w-full max-w-xs overflow-hidden  ">
         <div
-          className="flex w-[200%] transition-transform duration-500 ease-in-out"
+          className="flex w-[200%] transition-transform duration-500 ease-in-out  "
           style={{ transform: step === 1 ? "translateX(0%)" : "translateX(-50%)" }}
         >
           {/* Strona 1 */}

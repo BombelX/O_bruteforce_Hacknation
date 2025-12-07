@@ -7,7 +7,7 @@ import Link from 'next/link';
 function HomePage(): JSX.Element { 
     const [isLoggedIn, setIsLoggedIn] = useState(true); 
     return (
-        <div className="min-h-screen bg-gray-50 p-6 sm:p-10">
+        <div className="min-h-screen bg-blue-100 p-6 sm:p-10">
       
             
        

@@ -37,10 +37,10 @@ export default function StepOne({
     <div className="flex flex-col gap-4 w-full">
       <div className="form-control w-full">
         <label className="label">
-          <span className="label-text">Kategoria</span>
+          <span className="label-text text-bold font-primary">Kategoria</span>
         </label>
-        <select
-          className="select select-bordered w-full"
+        <select 
+          className="select select-bordered w-full bg-white border-black "
           value={selectedCategory}
           onChange={onCategoryChange}
         >
@@ -48,7 +48,8 @@ export default function StepOne({
             Wybierz kategorię
           </option>
           {categories.map((cat) => (
-            <option key={cat} value={cat}>
+            <option key={cat} value={cat}
+            className="border-black">
               {cat}
             </option>
           ))}
@@ -58,10 +59,10 @@ export default function StepOne({
       {hasSubCategories && (
         <div className="form-control w-full animate-fade-in-down">
           <label className="label">
-            <span className="label-text">Rodzaj przedmiotu</span>
+            <span className="label-text font-primary text-bold">Rodzaj przedmiotu</span>
           </label>
           <select
-            className="select select-bordered w-full"
+            className="select select-bordered w-full bg-white border-black"
             value={selectedSubCategory}
             onChange={onSubCategoryChange}
           >
@@ -80,19 +81,19 @@ export default function StepOne({
       {showDescription && (
         <div className="form-control w-full animate-fade-in-down">
           <label className="label">
-            <span className="label-text">Opis przedmiotu</span>
+            <span className="label-text ">Opis przedmiotu</span>
             {/* Przycisk do włączania guidelines */}
             <button
               type="button"
               onClick={onGuidelinesToggle}
-              className="btn btn-xs btn-circle btn-ghost text-info"
+              className="btn btn-xs btn-circle btn-ghost text-info "
               title="Wskazówki"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="w-4 h-4 stroke-current"
+                className="w-4 h-4 stroke-current  "
               >
                 <path
                   strokeLinecap="round"
@@ -106,7 +107,7 @@ export default function StepOne({
           <input
             type="text"
             placeholder="Opisz przedmiot"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-white border-black"
             value={description}
             onChange={onDescriptionChange}
           />
