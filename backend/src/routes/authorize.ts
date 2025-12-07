@@ -11,8 +11,9 @@ function generateSHA256(input: string): string {
     return createHash('sha256').update(input).digest('hex');
 }
 const router = Router();
+const cookieParser = require('cookie-parser');
 
-const user = z.object(
+const user = z.object( 
     {
         username : z.string().min(3).nonempty(),
         password : z.string().min(8, { message: "Hasło musi mieć co najmniej 8 znaków" })
@@ -101,16 +102,64 @@ router.post('/login',  async (req,res) => {
 
 })
 
-const refreshParser  = z.object({
-    refresh_token: z.string().nonempty(),
-    username: z.string().min(3).nonempty(),
+router.post('/auth', async (req,res) => {
+
+    const token = req.cookies.token;
+    if (!token){
+        return res.status(402).json({
+            error: 'cookie in invalid format'
+        })
+    }
+
+    const SECRET_KEY = process.env.SECRET_KEY as Secret;
+    if (!SECRET_KEY) {
+        return res.status(500).json({
+            error: 'server misconfiguration'
+        });
+    }
+    try {
+        jwt.verify(token, SECRET_KEY);
+        return res.status(200).json({
+            message : 'authorized'
+        });
+    } catch (err) {
+        return res.status(401).json({
+            message : 'Unauthorized',
+            error: 'invalid or expired token'
+        });
+    
+    }}
+);
+
+router.post('/logout',async(req,res) => {
+    const refresh_token = req.cookies.refresh_token;
+    if (!refresh_token){
+        return res.sendStatus(402);
+    }
+    try{
+        await db.update(refresh_tokens).set({
+            is_revoked: 1
+        }).where(eq(refresh_tokens.token, refresh_token));
+    }
+    catch (error){
+        return res.sendStatus(500);
+    }
+    res.clearCookie('token', { 
+        httpOnly: true, 
+        sameSite: 'lax', 
+        secure: process.env.NODE_ENV === 'production' 
+    });
+    return res.status(200).json({
+        message : 'logout succesfully'
+    });
 });
 
+
 router.post('/refresh', async (req,res) => {
-    const parsed = refreshParser.safeParse(req.body);
-    if (!parsed.success){
+    const old_refresh_token = req.cookies.token;
+    if (!old_refresh_token){
         return res.status(402).json({
-            error: 'token in invalid format'
+            error: 'cookie in invalid format'
         })
     }
     const SECRET_KEY = process.env.SECRET_KEY as Secret;
@@ -119,18 +168,20 @@ router.post('/refresh', async (req,res) => {
             error: 'server misconfiguration'
         });
     }
+    let decoded: JwtPayload;
     try {
-        const decoded = jwt.verify(parsed.data.refresh_token, SECRET_KEY) as JwtPayload;
+        decoded = jwt.verify(old_refresh_token, SECRET_KEY) as JwtPayload;
     } catch (err) {
         return res.status(401).json({
             message : 'Unauthorized',
             error: 'invalid or expired refresh token'
         });
-    }
+    }   
+    const username = decoded.username;
     
     let resp_db: any[] = [];
     try{
-        resp_db = await db.select().from(refresh_tokens).where(eq(refresh_tokens.token, parsed.data.refresh_token));
+        resp_db = await db.select().from(refresh_tokens).where(eq(refresh_tokens.token, old_refresh_token));
     }
     catch (error){
         return res.status(500).json({
@@ -149,12 +200,24 @@ router.post('/refresh', async (req,res) => {
         });
     }
     const refresh_token = jwt.sign(
-        { _id: resp_db[0].user_id, username: parsed.data.username },
+        { _id: resp_db[0].user_id, username: username },
         SECRET_KEY,
         { expiresIn: '3d' }
     );
+
+    try{
+        await db.update(refresh_tokens).set({
+            token: refresh_token,
+            expires_at: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+        }).where(eq(refresh_tokens.id, resp_db[0].id));
+    }
+    catch (error){
+        return res.status(500).json({
+            error: 'internal server error'
+        });
+    }
     const token = jwt.sign(
-        { _id: resp_db[0].user_id, username: parsed.data.username },
+        { _id: resp_db[0].user_id, username:username},
         SECRET_KEY,
         { expiresIn: '1h' }
     );
