@@ -14,6 +14,10 @@ Our solution transforms a simple note into a public record accessible to everyon
 - **Accessibility**: One easy system for the entire country
 - **Transparency**: Data publicly available to all citizens
 
+username: mockUser1
+password Password123
+
+
 ▶YouTube
 Youtube video presenting app features:
 https://youtu.be/9BBBt0pilr0 
