@@ -70,7 +70,7 @@ export default function Add() {
 
   return (
     <div className="flex min-h-screen text-primary font-sans bg-blue-100 flex-col p-4 gap-4 items-center ">
-      <h1 className="text-4xl font-bold mb-4 self-start md:self-center ">
+      <h1 className="text-4xl font-bold mb-4 self-start md:self-center mt-10 ">
         Dodaj nowy zagubiony przedmiot
       </h1>
 

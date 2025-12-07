@@ -8,9 +8,10 @@ import { logoutAction } from "@/app/login/actions";
 
 interface NavbarProps {
   isLoggedIn: boolean;
+  userName?: string | null; 
 }
 
-function Navbar({ isLoggedIn }: NavbarProps): JSX.Element {
+function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -18,6 +19,9 @@ function Navbar({ isLoggedIn }: NavbarProps): JSX.Element {
     router.refresh();
     router.push("/login");
   };
+
+  const currentUserName = userName || "Użytkownik"; 
+  const firstLetter = currentUserName ? currentUserName[0].toUpperCase() : 'U';
 
   return (
     <div className="navbar bg-blue-300 shadow-lg border-b border-primary/20 px-4 sm:px-8 py-3">
@@ -41,6 +45,7 @@ function Navbar({ isLoggedIn }: NavbarProps): JSX.Element {
 
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0 items-center gap-3 sm:gap-4">
+
           {isLoggedIn ? (
             <li>
               <Link href="/add" className="btn bg-blue-300 text-gray-800 px-4 sm:px-6 text-base">
@@ -50,21 +55,38 @@ function Navbar({ isLoggedIn }: NavbarProps): JSX.Element {
           ) : null}
 
           {isLoggedIn ? (
-            <>
-              <li>
-                <button onClick={handleLogout} className="btn btn-error text-white px-6">
-                  Wyloguj
-                </button>
-              </li>
-              <li className="hidden md:flex">
-                <div className="avatar avatar-placeholder cursor-default hover:bg-blue-300">
-                  <div className="bg-neutral text-neutral-content w-12 rounded-full">
-                    <span className="text-3xl">U</span>
+           
+            <li className="hidden md:flex items-center"> 
+              
+             
+              <span className="text-sm text-gray-700 mr-2 hidden lg:inline">
+                  Jesteś zalogowany jako {currentUserName}
+              </span>
+
+              <div className="dropdown dropdown-end"> 
+                
+              
+                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                  <div className="bg-neutral text-neutral-content w-10 rounded-full">
+                    <span className="text-xl">
+                        {firstLetter} 
+                    </span>
                   </div>
                 </div>
-              </li>
-            </>
+
+                
+                <ul
+                  tabIndex={0}
+                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-primary rounded-box w-52"
+                > 
+                  <li onClick={handleLogout}>
+                    <a>Wyloguj</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
           ) : (
+           
             <li>
               <Link href="/login" className="btn btn-primary text-white px-6">
                 Zaloguj się
