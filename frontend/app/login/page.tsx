@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, FormEvent, JSX } from "react";
+import { useState, FormEvent, JSX } from "react";
 import { useRouter } from "next/navigation";
 import { loginAction } from "./actions";
 
