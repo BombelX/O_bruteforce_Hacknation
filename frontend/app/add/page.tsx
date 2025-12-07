@@ -62,7 +62,7 @@ export default function Add() {
       location,
       date,
     };
-
+    
     const result = await addItemAction(formData);
 
     if (result.success) {
