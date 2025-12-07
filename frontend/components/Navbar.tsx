@@ -45,13 +45,7 @@ function Navbar(): JSX.Element {
 
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0 items-center gap-3 sm:gap-4">
-          <li className="hidden md:flex">
-                <div className="avatar avatar-placeholder">
-                  <div className="bg-neutral text-neutral-content w-12 rounded-full">
-                    <span className="text-3xl">D</span>
-                  </div>
-                </div>
-              </li>
+          
               <li>
             <Link href="/add" className="btn bg-blue-300 text-gray-800 px-4 sm:px-6 text-base">
               Dodaj Zgubę
@@ -75,7 +69,13 @@ function Navbar(): JSX.Element {
             </li>
             
           )}
-          
+          <li className="hidden md:flex ">
+                <div className="avatar avatar-placeholder  cursor-default hover:bg-blue-300">
+                  <div className="bg-neutral text-neutral-content w-12 rounded-full">
+                    <span className="text-3xl">D</span>
+                  </div>
+                </div>
+              </li>
         </ul>
       </div>
     </div>
