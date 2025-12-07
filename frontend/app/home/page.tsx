@@ -1,11 +1,11 @@
-"use client";
-
 import React, { JSX } from "react";
-import { useState } from "react";
 import Link from "next/link";
+import { cookies } from "next/headers";
 
-function HomePage(): JSX.Element {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+async function HomePage(): Promise<JSX.Element> {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
+  const isLoggedIn = !!token;
   return (
     <div className="min-h-screen bg-blue-100 p-6 sm:p-10">
       <main className="container mx-auto">
