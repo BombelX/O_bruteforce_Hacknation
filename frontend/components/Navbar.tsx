@@ -1,26 +1,22 @@
 "use client";
 
-import { JSX } from "react/jsx-dev-runtime";
+import { JSX } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { logoutAction } from "@/app/login/actions";
 
-function Navbar(): JSX.Element {
+interface NavbarProps {
+  isLoggedIn: boolean;
+}
+
+function Navbar({ isLoggedIn }: NavbarProps): JSX.Element {
   const router = useRouter();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [userName, setUserName] = useState("Starosta_JanK");
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
+  const handleLogout = async () => {
+    await logoutAction();
+    router.refresh();
     router.push("/login");
-  };
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    setUserName("Urzednik_XYZ");
-    router.push("/");
   };
 
   return (
@@ -53,25 +49,24 @@ function Navbar(): JSX.Element {
 
           {isLoggedIn ? (
             <>
-              <li className="hidden md:flex">
-                <div className="avatar avatar-placeholder">
-                  <div className="bg-neutral text-neutral-content w-12 rounded-full">
-                    <span className="text-3xl">D</span>
-                  </div>
-                </div>
-              </li>
-
               <li>
                 <button onClick={handleLogout} className="btn btn-error text-white px-6">
                   Wyloguj
                 </button>
               </li>
+              <li className="hidden md:flex">
+                <div className="avatar avatar-placeholder cursor-default hover:bg-blue-300">
+                  <div className="bg-neutral text-neutral-content w-12 rounded-full">
+                    <span className="text-3xl">U</span>
+                  </div>
+                </div>
+              </li>
             </>
           ) : (
             <li>
-              <button onClick={handleLogin} className="btn btn-primary text-white px-6">
+              <Link href="/login" className="btn btn-primary text-white px-6">
                 Zaloguj się
-              </button>
+              </Link>
             </li>
           )}
         </ul>
