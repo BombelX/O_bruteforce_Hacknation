@@ -41,11 +41,13 @@ function Navbar({ isLoggedIn }: NavbarProps): JSX.Element {
 
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0 items-center gap-3 sm:gap-4">
-          <li>
-            <Link href="/add" className="btn bg-blue-300 text-gray-800 px-4 sm:px-6 text-base">
-              Dodaj Zgubę
-            </Link>
-          </li>
+          {isLoggedIn ? (
+            <li>
+              <Link href="/add" className="btn bg-blue-300 text-gray-800 px-4 sm:px-6 text-base">
+                Dodaj Zgubę
+              </Link>
+            </li>
+          ) : null}
 
           {isLoggedIn ? (
             <>
