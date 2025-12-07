@@ -2,7 +2,8 @@ import requests
 import json
 
 # Configuration for your Node.js API
-API_URL = "http://localhost:3000/categories"  # Make sure the port (3000) matches your Node server
+# Make sure the port (3000) matches your Node server
+API_URL = "http://localhost:3100/formular/olddata/submit"
 
 
 def api_f(data_list):
@@ -27,7 +28,8 @@ def api_f(data_list):
             "region": item[0] or "",
             "voivodeship": item[1] or "",
             "category": item[2] or "Inne",
-            "subcategories": item[3] or "",  # Crucial: Zod expects string, Python has None
+            # Crucial: Zod expects string, Python has None
+            "subcategories": item[3] or "",
             "where_found": item[4] or "Nieznane",
             "found_date": item[5] or "",
             "register_date": item[6] or "",
@@ -38,15 +40,17 @@ def api_f(data_list):
             response = requests.post(API_URL, json=payload, headers=headers)
 
             if response.status_code == 201:
-                print(f"✅ [SUCCESS] Uploaded: {payload['description'][:30]}...")
+                print(
+                    f"✅ [SUCCESS] Uploaded: {payload['description'][:30]}...")
             else:
-                print(f"❌ [ERROR {response.status_code}] Failed: {response.text}")
-                print(f"   Payload was: {json.dumps(payload, ensure_ascii=False)}")
+                print(
+                    f"❌ [ERROR {response.status_code}] Failed: {response.text}")
+                print(
+                    f"   Payload was: {json.dumps(payload, ensure_ascii=False)}")
 
         except requests.exceptions.ConnectionError:
-            print("🚨 [CONNECTION ERROR] Could not connect to Node.js. Is the server running?")
+            print(
+                "🚨 [CONNECTION ERROR] Could not connect to Node.js. Is the server running?")
             break
         except Exception as e:
             print(f"⚠️ [EXCEPTION] {e}")
-
-
