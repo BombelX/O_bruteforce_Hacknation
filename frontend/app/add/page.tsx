@@ -3,7 +3,7 @@ import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import StepOne from "@/components/PageOne";
 import StepTwo from "@/components/PageTwo";
 import { useRouter } from "next/navigation";
-import { addItemAction, getCategoriesAction,getSubCategoriesAction } from "./action";
+import { addItemAction, getCategoriesAction, getSubCategoriesAction } from "./action";
 
 type SubCategoriesMap = Record<string, string[]>;
 
@@ -33,30 +33,30 @@ export default function Add() {
     fetchCategories();
   }, []);
 
-useEffect(() => {
-  const fetchSubCategories = async () => {
-    if (!selectedCategory) {
-      // no category selected, don't modify the map
-      return;
-    }
+  useEffect(() => {
+    const fetchSubCategories = async () => {
+      if (!selectedCategory) {
+        // no category selected, don't modify the map
+        return;
+      }
 
-    const data = await getSubCategoriesAction(categories.indexOf(selectedCategory) + 1);
-    console.log(data);
-    if (data && data.length > 0) {
-      setSubCategories(prev => ({
-        ...prev,
-        [selectedCategory]: data,
-      }));
-    } else {
-      setSubCategories(prev => ({
-        ...prev,
-        [selectedCategory]: [],
-      }));
-    }
-  };
+      const data = await getSubCategoriesAction(categories.indexOf(selectedCategory) + 1);
+      console.log(data);
+      if (data && data.length > 0) {
+        setSubCategories((prev) => ({
+          ...prev,
+          [selectedCategory]: data,
+        }));
+      } else {
+        setSubCategories((prev) => ({
+          ...prev,
+          [selectedCategory]: [],
+        }));
+      }
+    };
 
-  fetchSubCategories();
-}, [selectedCategory, categories]);
+    fetchSubCategories();
+  }, [selectedCategory, categories]);
 
   // const defaultSubCategories: SubCategoriesMap = {
   //   Elektronika: ["Telefon", "Słuchawki", "Laptop/Tablet", "Ładowarka/Kable", "Inne"],
@@ -64,7 +64,6 @@ useEffect(() => {
   //   "Rzeczy osobiste": ["Portfel", "Klucze", "Okulary", "Biżuteria", "Plecak/Torebka", "Inne"],
   //   Odzież: ["Kurtka/Płaszcz", "Czapka/Szalik/Rękawiczki", "Buty", "Bluza/Sweter", "Inne"],
   // };
-
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);
@@ -101,7 +100,7 @@ useEffect(() => {
       location,
       date,
     };
-
+    alert(categories);
     const result = await addItemAction(formData);
 
     if (result.success) {
