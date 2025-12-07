@@ -1,9 +1,9 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
-
-import StepOne from "@/components/PageOne";
+import StepOne from "@/components/PageOne"; // Upewnij się co do ścieżek importu
 import StepTwo from "@/components/PageTwo";
 import { useRouter } from "next/navigation";
+import { addItemAction } from "./action"; // Importujemy naszą akcję
 
 type SubCategoriesMap = Record<string, string[]>;
 
@@ -45,11 +45,10 @@ export default function Add() {
       alert("Proszę dodać krótki opis przedmiotu.");
       return;
     }
-
     setStep(2);
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!location || !date) {
       alert("Proszę uzupełnić miejsce i datę.");
@@ -63,9 +62,14 @@ export default function Add() {
       location,
       date,
     };
-    // TODO przesylanie jsona do backendu
-    alert(`Formularz wysłany!\n${JSON.stringify(formData, null, 2)}`);
-    router.push("/add/success");
+
+    const result = await addItemAction(formData);
+
+    if (result.success) {
+      router.push("/add/success");
+    } else {
+      alert(result.message || "Wystąpił błąd podczas wysyłania formularza.");
+    }
   };
 
   return (
@@ -74,12 +78,11 @@ export default function Add() {
         Dodaj nowy zagubiony przedmiot
       </h1>
 
-      <div className="w-full max-w-xs overflow-hidden  ">
+      <div className="w-full max-w-xs overflow-hidden">
         <div
-          className="flex w-[200%] transition-transform duration-500 ease-in-out  "
+          className="flex w-[200%] transition-transform duration-500 ease-in-out"
           style={{ transform: step === 1 ? "translateX(0%)" : "translateX(-50%)" }}
         >
-          {/* Strona 1 */}
           <div className="w-1/2 px-1">
             <StepOne
               categories={categories}
@@ -96,7 +99,6 @@ export default function Add() {
             />
           </div>
 
-          {/* Strona 2 */}
           <div className="w-1/2 px-1">
             <StepTwo
               location={location}
