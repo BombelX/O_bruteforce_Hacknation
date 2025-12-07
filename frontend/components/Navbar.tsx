@@ -37,9 +37,9 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
             height={80}
             className="rounded-md"
           />
-          <span className="text-xl font-bold text-gray-800 hidden sm:inline">
+          <h1 className="text-xl font-bold text-gray-800 hidden sm:inline">
             | Biuro Rzeczy Znalezionych
-          </span>
+          </h1>
         </Link>
       </div>
 
