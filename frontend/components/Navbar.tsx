@@ -1,26 +1,25 @@
 "use client";
 
-import { JSX } from "react/jsx-dev-runtime";
+import { JSX } from "react"; // Poprawiony import dla React 19/Next 15
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { logoutAction } from "@/app/login/actions";
 
-function Navbar(): JSX.Element {
+interface NavbarProps {
+  isLoggedIn: boolean;
+}
+
+function Navbar({ isLoggedIn }: NavbarProps): JSX.Element {
   const router = useRouter();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [userName, setUserName] = useState("Starosta_JanK");
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
+  const handleLogout = async () => {
+    // 1. Wywołaj akcję serwerową, aby usunąć ciasteczka
+    await logoutAction();
+    // 2. Odśwież router, aby Layout ponownie sprawdził ciasteczka i przekazał false
+    router.refresh();
+    // 3. Opcjonalnie przekieruj na login
     router.push("/login");
-  };
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    setUserName("Urzednik_XYZ");
-    router.push("/");
   };
 
   return (
@@ -30,6 +29,7 @@ function Navbar(): JSX.Element {
           href="/home"
           className="btn bg-blue-300 text-xl text-primary normal-case h-auto py-2 gap-4"
         >
+          {/* Upewnij się, że masz ten obrazek w public/images/ */}
           <Image
             src="/images/logoMC.png"
             alt="Logo"
@@ -45,8 +45,7 @@ function Navbar(): JSX.Element {
 
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0 items-center gap-3 sm:gap-4">
-          
-              <li>
+          <li>
             <Link href="/add" className="btn bg-blue-300 text-gray-800 px-4 sm:px-6 text-base">
               Dodaj Zgubę
             </Link>
@@ -54,28 +53,26 @@ function Navbar(): JSX.Element {
 
           {isLoggedIn ? (
             <>
-              
               <li>
                 <button onClick={handleLogout} className="btn btn-error text-white px-6">
                   Wyloguj
                 </button>
               </li>
-            </>
-          ) : (
-            <li>
-              <button onClick={handleLogin} className="btn btn-primary text-white px-6">
-                Zaloguj się
-              </button>
-            </li>
-            
-          )}
-          <li className="hidden md:flex ">
-                <div className="avatar avatar-placeholder  cursor-default hover:bg-blue-300">
+              <li className="hidden md:flex">
+                <div className="avatar avatar-placeholder cursor-default hover:bg-blue-300">
                   <div className="bg-neutral text-neutral-content w-12 rounded-full">
-                    <span className="text-3xl">D</span>
+                    <span className="text-3xl">U</span>
                   </div>
                 </div>
               </li>
+            </>
+          ) : (
+            <li>
+              <Link href="/login" className="btn btn-primary text-white px-6">
+                Zaloguj się
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </div>

@@ -33,7 +33,6 @@ export async function loginAction(formData: {
     }
 
     const data = await response.json();
-
     const cookieStore = await cookies();
 
     const cookieOptions = {
@@ -41,7 +40,7 @@ export async function loginAction(formData: {
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict" as const,
       path: "/",
-      maxAge: 60 * 60 * 24 * 3,
+      maxAge: 60 * 60 * 24 * 3, // 3 dni
     };
 
     cookieStore.set("token", data.jwt_token, cookieOptions);
@@ -52,4 +51,11 @@ export async function loginAction(formData: {
     console.error("Login action error:", error);
     return { success: false, message: "Błąd połączenia z serwerem." };
   }
+}
+
+// NOWA FUNKCJA: Wylogowywanie
+export async function logoutAction() {
+  const cookieStore = await cookies();
+  cookieStore.delete("token");
+  cookieStore.delete("refresh_token");
 }
