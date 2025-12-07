@@ -100,3 +100,35 @@ export async function getCategoriesAction(): Promise<string[]> {
     return [];
   }
 }
+export async function getSubCategoriesAction(categoryID: number): Promise<string[]> {
+  const API_URL = "http://localhost:3100/formular/subcategories/";
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  try {
+    const response = await fetch(`${API_URL}${categoryID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      console.error(`Błąd pobierania kategorii: ${response.status}`);
+      return [];
+    }
+
+    const data = (await response.json()) as CategoryFromApi[];
+
+    if (Array.isArray(data)) {
+      return data.map((item) => item.name);
+    }
+
+    return [];
+  } catch (error) {
+    console.error("Błąd połączenia:", error);
+    return [];
+  }
+}
