@@ -8,7 +8,7 @@ import { logoutAction } from "@/app/login/actions";
 
 interface NavbarProps {
   isLoggedIn: boolean;
-  userName?: string | null; 
+  userName?: string | null;
 }
 
 function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
@@ -19,9 +19,9 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
     router.refresh();
     router.push("/login");
   };
-  
-  const currentUserName = userName || "Użytkownik"; 
-  const firstLetter = currentUserName ? currentUserName[0].toUpperCase() : 'U';
+
+  const currentUserName = userName || "Użytkownik";
+  const firstLetter = currentUserName ? currentUserName[0].toUpperCase() : "U";
 
   return (
     <div className="navbar bg-blue-300 shadow-lg border-b border-primary/20 px-4 sm:px-8 py-3">
@@ -45,7 +45,6 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
 
       <div className="flex-none">
         <ul className="menu menu-horizontal p-0 items-center gap-3 sm:gap-4">
-
           {isLoggedIn ? (
             <li>
               <Link href="/add" className="btn bg-primary text-gray-900 border-none shadow-xl hover:scale-105 transition duration-300 px-4 sm:px-6 text-base">
@@ -68,17 +67,14 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
               
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ">
                   <div className="bg-neutral text-neutral-content w-10 rounded-full">
-                    <span className="text-xl">
-                        {firstLetter} 
-                    </span>
+                    <span className="text-xl">{firstLetter}</span>
                   </div>
                 </div>
 
-                
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-primary rounded-box w-52"
-                > 
+                  className="mt-3 z-1 p-2 shadow menu menu-sm dropdown-content bg-primary rounded-box w-52"
+                >
                   <li onClick={handleLogout}>
                     <a>Wyloguj</a>
                   </li>
@@ -86,7 +82,6 @@ function Navbar({ isLoggedIn, userName }: NavbarProps): JSX.Element {
               </div>
             </li>
           ) : (
-           
             <li>
               <Link href="/login" className="btn btn-primary text-white px-6">
                 Zaloguj się
