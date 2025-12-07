@@ -20,26 +20,41 @@ export const refresh_tokens = sqliteTable('refresh_tokens', {
 
 export const categories = sqliteTable('categories', {
     id: int('id').primaryKey(),
-    name: text('name').notNull(),
+    name: text('name'),
 });
 
 export const subcategories = sqliteTable('subcategories', {
     id: int('id').primaryKey(),
-    category_id: int('category_id').notNull(),
-    name: text('name').notNull(),
+    category_id: int('category_id'),
+    name: text('name'),
 });
 
 export const items = sqliteTable('items', {
     id: int('id').primaryKey(),
-    category_id: int('category_id').notNull(),
-    subcategory_id: int('subcategory_id').notNull(),
-    where_found: text('where_found').notNull(),
-    found_date: text('found_date').notNull(),
-    register_date: text('register_date').notNull(),
-    description: text('description').notNull(),
+    category_id: int('category_id'),
+    subcategory_id: int('subcategory_id'),
+    where_found: text('where_found'),
+    found_date: text('found_date'),
+    register_date: text('register_date'),
+    description: text('description'),
+    user_id: int('user_id'),
 });
 
-export const item_subcategories = sqliteTable('item_subcategories', {
-    item_id: int('item_id').notNull(),
-    subcategory_id: int('subcategory_id').notNull(),
+export const old_items = sqliteTable('old_items', {
+    id: int('id').primaryKey(),
+    category: text('category').notNull(),
+    found_date: text('found_date'),
+    where_found: text('where_found'),
+    register_date: text('register_date'),
+    description: text('description'),
+    voivodeship: text('voivodeship'),
+    region: text('region'),
+    subcategories: text('subcategories'),
+});
+
+export const region = sqliteTable('region', {
+    id: int('id').primaryKey(),
+    user_id: int('user_id'),
+    voivodeship : text('voivodeship '),
+    region: text('region')
 });

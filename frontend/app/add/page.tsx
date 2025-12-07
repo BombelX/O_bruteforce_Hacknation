@@ -102,9 +102,9 @@ export default function Add() {
     const formData = {
       category_id: Number(foundIndex) + 1,
       subcategory_id: Number(foundSubCategoryIndex),
-      where_found: description,
-      found_date: location,
-      description: description,
+      where_found: location,
+      found_date: date,
+      description: description
     };
     const result = await addItemAction(formData);
 
