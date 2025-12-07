@@ -4,7 +4,7 @@ import { db } from "../db/client";
 import { eq } from "drizzle-orm";
 import jwt, { Secret, JwtPayload } from "jsonwebtoken";
 import { ca } from "zod/v4/locales";
-import { categories, subcategories, items,old_items } from "../db/schema";
+import { categories, subcategories, items, old_items } from "../db/schema";
 import dotenv from "dotenv";
 dotenv.config();
 const router = Router();
@@ -14,14 +14,14 @@ const form = z.object({
   subcategory_id: z.number().int(),
   where_found: z.string().min(0).max(255),
   found_date: z.string().min(0).max(13),
-  description: z.string()
+  description: z.string(),
 });
 
 router.post("/submit", async (req, res) => {
   const token = req.cookies.token;
   try {
     if (!token) {
-        return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: "Unauthorized" });
     }
     jwt.verify(token, process.env.SECRET_KEY as Secret);
   } catch (err) {
@@ -29,7 +29,7 @@ router.post("/submit", async (req, res) => {
   }
   console.log(req.body);
   const parsed = form.safeParse(req.body);
-  if (!parsed.success){
+  if (!parsed.success) {
     return res.status(400).json({
       error: "Invalid form data",
     });
@@ -44,7 +44,7 @@ router.post("/submit", async (req, res) => {
       found_date: parsed.data.found_date,
       register_date: new Date().toISOString(),
       description: parsed.data.description,
-      user_id: userId, 
+      user_id: userId,
     });
     return res.status(201).json({ success: true });
   } catch (err) {
@@ -64,42 +64,40 @@ router.get("/categories", async (req, res) => {
   }
 });
 
-
 const oldData = z.object({
-    category: z.string(),
-    found_date: z.string(),
-    where_found: z.string(),
-    register_date: z.string(),
-    description: z.string(),
-    voivodeship: z.string(),
-    region: z.string(),
-    subcategories: z.string(),
+  category: z.string(),
+  found_date: z.string(),
+  where_found: z.string(),
+  register_date: z.string(),
+  description: z.string(),
+  voivodeship: z.string(),
+  region: z.string(),
+  subcategories: z.string(),
 });
 
-
-router.post('/categories',async (req,res) => {
-    const parsed = oldData.safeParse(req.body);
-    if (!parsed.success){
-        return res.status(400).json({
-            error: "Invalid form data",
-        });
-    }
-    try {
-        await db.insert(old_items).values({
-            category: parsed.data.category,
-            found_date: parsed.data.found_date,
-            where_found: parsed.data.where_found,
-            register_date: parsed.data.register_date,
-            description: parsed.data.description,
-            voivodeship: parsed.data.voivodeship,
-            region: parsed.data.region,
-            subcategories: parsed.data.subcategories,
-        });
-        return res.status(201).json({ success: true });
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+router.post("/olddata/submit", async (req, res) => {
+  const parsed = oldData.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({
+      error: "Invalid form data",
+    });
+  }
+  try {
+    await db.insert(old_items).values({
+      category: parsed.data.category,
+      found_date: parsed.data.found_date,
+      where_found: parsed.data.where_found,
+      register_date: parsed.data.register_date,
+      description: parsed.data.description,
+      voivodeship: parsed.data.voivodeship,
+      region: parsed.data.region,
+      subcategories: parsed.data.subcategories,
+    });
+    return res.status(201).json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 });
 router.get("/subcategories/:id", async (req, res) => {
   const { id } = req.params;
@@ -116,7 +114,7 @@ router.get("/subcategories/:id", async (req, res) => {
       .select({ name: subcategories.name, id: subcategories.id })
       .from(subcategories)
       .where(eq(subcategories.category_id, idNum));
-      console.log(result);
+    console.log(result);
     return res.status(200).json(result);
   } catch (err) {
     console.error(err);
