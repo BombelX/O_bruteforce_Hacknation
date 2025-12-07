@@ -8,6 +8,20 @@
       "when": 1765044718083,
       "tag": "0000_outgoing_bloodstorm",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1765073561324,
+      "tag": "0001_outgoing_morlocks",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1765075581016,
+      "tag": "0002_goofy_stardust",
+      "breakpoints": true
     }
   ]
 }
