@@ -66,6 +66,7 @@ export async function logoutAction() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           refresh_token: refreshToken,
         }),
