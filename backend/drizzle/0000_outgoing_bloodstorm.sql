@@ -1,4 +1,4 @@
-CREATE TABLE `refresh_tokens` (
+CREATE TABLE IF NOT EXISTS `refresh_tokens` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`user_id` integer NOT NULL,
 	`token` text NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE `refresh_tokens` (
 	`is_revoked` integer NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE `test` (
+CREATE TABLE IF NOT EXISTS `test` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`username` text NOT NULL,
 	`password` text NOT NULL

@@ -1,15 +1,17 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from "react";
-import StepOne from "@/components/PageOne"; // Upewnij się co do ścieżek importu
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import StepOne from "@/components/PageOne";
 import StepTwo from "@/components/PageTwo";
 import { useRouter } from "next/navigation";
-import { addItemAction } from "./action"; // Importujemy naszą akcję
+import { addItemAction, getCategoriesAction } from "./action";
 
 type SubCategoriesMap = Record<string, string[]>;
 
 export default function Add() {
   const [step, setStep] = useState<number>(1);
   const router = useRouter();
+
+  const [categories, setCategories] = useState<string[]>([]);
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
@@ -19,7 +21,18 @@ export default function Add() {
   const [location, setLocation] = useState<string>("");
   const [date, setDate] = useState<string>("");
 
-  const categories = ["Elektronika", "Dokumenty", "Rzeczy osobiste", "Odzież", "Inne"];
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await getCategoriesAction();
+      console.log(data);
+      alert(data);
+      if (data && data.length > 0) {
+        setCategories(data);
+      }
+    };
+
+    fetchCategories();
+  }, []);
   const subCategories: SubCategoriesMap = {
     Elektronika: ["Telefon", "Słuchawki", "Laptop/Tablet", "Ładowarka/Kable", "Inne"],
     Dokumenty: ["Dowód osobisty", "Legitymacja", "Prawo jazdy", "Paszport", "Inne"],
@@ -85,7 +98,7 @@ export default function Add() {
         >
           <div className="w-1/2 px-1">
             <StepOne
-              categories={categories}
+              categories={categories} // Przekazujemy stan
               subCategories={subCategories}
               selectedCategory={selectedCategory}
               selectedSubCategory={selectedSubCategory}

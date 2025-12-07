@@ -1,14 +1,14 @@
-CREATE TABLE `categories` (
+CREATE TABLE IF NOT EXISTS `categories` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`name` text NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE `item_subcategories` (
+CREATE TABLE IF NOT EXISTS `item_subcategories` (
 	`item_id` integer NOT NULL,
 	`subcategory_id` integer NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE `items` (
+CREATE TABLE IF NOT EXISTS `items` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`category_id` integer NOT NULL,
 	`where_found` text NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE `items` (
 	`description` text NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE `subcategories` (
+CREATE TABLE IF NOT EXISTS `subcategories` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`category_id` integer NOT NULL,
 	`name` text NOT NULL

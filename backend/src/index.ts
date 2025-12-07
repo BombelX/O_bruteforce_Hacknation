@@ -3,6 +3,7 @@ import express from "express";
 import Database from "better-sqlite3";
 import cors from "cors";
 import authorize from "./routes/authorize";
+import formular from "./routes/formular";
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -14,6 +15,7 @@ app.use((req, _res, next) => {
 app.use(express.json());
 app.use(cookieParser());
 app.use("/authorize", authorize);
+app.use("/formular", formular);
 
 app.get("/", (req, res) => {
   res.send("Backend HACKNation działa ✅");
