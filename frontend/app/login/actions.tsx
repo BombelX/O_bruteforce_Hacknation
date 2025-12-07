@@ -1,6 +1,8 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 interface LoginResult {
   success: boolean;
@@ -75,8 +77,9 @@ export async function logoutAction() {
       console.error("Błąd podczas wylogowywania na backendzie:", error);
     }
   }
+
   cookieStore.delete("token");
   cookieStore.delete("refresh_token");
-
-  return { success: true };
+  revalidatePath("/", "layout");
+  redirect("/login");
 }
